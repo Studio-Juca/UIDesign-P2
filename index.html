@@ -1,31 +1,111 @@
-  
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>[your name] | UI Design Programming 1</title>
-  <meta charset="utf-8" />
+  <title>Peaking into Design</title>
+  <meta charset="utf-8"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/style.css"/>
 </head>
 
 <body>
 
-  <!-- this is where my code is-->
-  <div id="grid">
-    <div id="left-column" class="scroll">  
+  <!-- ==== HOME SCREEN ==== -->
+  <div class="screen active" id="screen-home">
+    <h1 class="page-title">Peaking into Design</h1>
 
-      <!-- my favorite pokemon -->
-      <!-- <img src="https://archives.bulbagarden.net/media/upload/2/24/Spr_2c_054.png" alt="Psyduck" /> -->
+    <!-- Filter Panel (hidden by default) -->
+    <div class="filter-panel" id="filter-panel">
+      <h3>Filter by genre</h3>
+      <div class="filter-chips" id="filter-chips"></div>
+    </div>
 
-      <!-- about me-->
-      <h1>[Your Name Here]</h1>  
-      <p class="desc">A short paragraph about you...</p>
-      <ul>
-        <li>My favorite food is ...</li>
-        <li>My favorite song is...</li>
-        <li>My favorite website is <a href="">Craigslist</a></li>
-      </ul>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active-tab">Recommendations!</button>
+      <button class="tab coming-soon">Coming soon!</button>
+    </div>
+
+    <!-- Main Card -->
+    <div class="main-card">
+
+      <!-- Filters button -->
+      <div class="filters-row">
+        <button class="btn-filters" id="btn-filters">Filters</button>
+      </div>
+
+      <!-- Book Layout -->
+      <div class="book-layout">
+
+        <!-- Left: Cover -->
+        <div class="cover-wrap">
+          <div class="book-cover" id="book-cover-img" title="Click to zoom in">
+            <div class="cover-placeholder">Book cover</div>
+          </div>
+          <span class="cover-hint">Click the photo to zoom in</span>
+        </div>
+
+        <!-- Right: Details -->
+        <div class="right-panel">
+
+          <!-- Rating row -->
+          <div class="rating-row">
+            <span class="rating-label">Goodreads rating</span>
+            <div class="stars" id="stars-display"></div>
+            <span class="rating-count" id="rating-count"></span>
+            <button class="btn-add" id="btn-add">Add to bookshelf</button>
+          </div>
+
+          <!-- Info box -->
+          <div class="info-box">
+            <div class="info-title" id="book-title">Information</div>
+            <div class="info-content" id="info-content">Get a recommendation to see book details here.</div>
+          </div>
+
+          <!-- Info toggle -->
+          <div class="info-toggle">
+            <button class="toggle-btn inactive" id="toggle-sentence">1 sentence (+ visual?)</button>
+            <button class="toggle-btn active"   id="toggle-blurb">Blurb (back of the book)</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom Buttons -->
+      <div class="bottom-row">
+        <button class="btn-pill btn-primary" id="btn-recommend">Get a recommendation!</button>
+        <button class="btn-pill btn-bookshelf" id="btn-go-shelf">Bookshelf</button>
+      </div>
 
     </div>
+  </div> 
+
+  <!-- ==== BOOKSHELF SCREEN ==== -->
+  <div class="screen" id="screen-shelf">
+    <div class="shelf-header">
+      <button class="btn-back" id="btn-back">← Back</button>
+      <h1 class="page-title" style="margin:0">My Bookshelf</h1>
+      <div style="width:80px"></div>
+    </div>
+    <div id="shelf-contents"></div>
   </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightbox-close">✕</span>
+    <div id="lightbox-img-wrap">
+      <div class="lightbox-placeholder">Book cover</div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- books.js must come before script.js so the `books` array is available -->
+  <script src="assets/books.js"></script>
+  <script src="assets/script.js"></script>
+
 </body>
+
 </html>
