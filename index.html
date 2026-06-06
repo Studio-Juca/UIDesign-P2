@@ -5,7 +5,7 @@
 <head>
   <title>Peaking into Design</title>
   <meta charset="utf-8"/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/style.css"/>
 </head>
 
@@ -23,70 +23,135 @@
 
     <!-- Tabs -->
     <div class="tabs">
-      <button class="tab active-tab">Recommendations!</button>
-      <button class="tab coming-soon">Coming soon!</button>
+      <button class="tab active-tab" id="tab-recommendations">Recommendations!</button>
+      <button class="tab overview-tab" id="tab-overview">Overview</button>
     </div>
 
     <!-- Main Card -->
     <div class="main-card">
 
-      <!-- Filters button -->
-      <div class="filters-row">
-        <button class="btn-filters" id="btn-filters">Filters</button>
-      </div>
+      <!-- ── RECOMMENDATIONS PANEL ── -->
+      <div id="recommendations-panel">
 
-      <!-- Book Layout -->
-      <div class="book-layout">
-
-        <!-- Left: Cover -->
-        <div class="cover-wrap">
-          <div class="book-cover" id="book-cover-img" title="Click to zoom in">
-            <div class="cover-placeholder">Book cover</div>
-          </div>
-          <span class="cover-hint">Click the photo to zoom in</span>
+        <!-- Filters button -->
+        <div class="filters-row">
+          <button class="btn-filters" id="btn-filters">Filters</button>
         </div>
 
-        <!-- Right: Details -->
-        <div class="right-panel">
+        <!-- Book Layout -->
+        <div class="book-layout">
 
-          <!-- Rating row -->
-          <div class="rating-row">
-            <span class="rating-label">Goodreads rating</span>
-            <div class="stars" id="stars-display"></div>
-            <span class="rating-count" id="rating-count"></span>
-            <button class="btn-add" id="btn-add">Add to bookshelf</button>
+          <!-- Left: Cover -->
+          <div class="cover-wrap">
+            <div class="book-cover" id="book-cover-img" title="Click to zoom in">
+              <div class="cover-placeholder">Book cover</div>
+            </div>
+            <span class="cover-hint">Click the photo to zoom in</span>
           </div>
 
-          <!-- Info box -->
-          <div class="info-box">
-            <div class="info-title" id="book-title">Information</div>
-            <div class="info-content" id="info-content">Get a recommendation to see book details here.</div>
+          <!-- Right: Details -->
+          <div class="right-panel">
+
+            <!-- Rating row -->
+            <div class="rating-row">
+              <span class="rating-label">Goodreads rating</span>
+              <div class="stars" id="stars-display"></div>
+              <span class="rating-count" id="rating-count"></span>
+              <button class="btn-add" id="btn-add">Add to bookshelf</button>
+            </div>
+
+            <!-- Info box -->
+            <div class="info-box">
+              <div class="info-title" id="book-title">Information</div>
+              <div class="info-content" id="info-content">Get a recommendation to see book details here.</div>
+            </div>
+
+            <!-- Info toggle -->
+            <div class="info-toggle">
+              <button class="toggle-btn inactive" id="toggle-sentence">A quick look</button>
+              <button class="toggle-btn active"   id="toggle-blurb">Blurb / Back of the book</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Bottom Buttons -->
+        <div class="bottom-row">
+          <button class="btn-pill btn-primary" id="btn-recommend">Get a recommendation!</button>
+          <button class="btn-pill btn-bookshelf" id="btn-go-shelf">Bookshelf</button>
+        </div>
+
+      </div>
+
+      <!-- ── OVERVIEW PANEL ── -->
+      <div id="overview-panel" class="overview-panel">
+
+        <div class="ov-layout">
+
+          <!-- Left side: Books grid -->
+          <div class="ov-books-col">
+            <h2 class="ov-section-title">Books referenced in "Recommendations!"</h2>
+            <div class="ov-books-grid" id="ov-books-grid"></div>
           </div>
 
-          <!-- Info toggle -->
-          <div class="info-toggle">
-            <button class="toggle-btn inactive" id="toggle-sentence">A quick look</button>
-            <button class="toggle-btn active"   id="toggle-blurb">Blurb / Back of the book</button>
+          <!-- Divider -->
+          <div class="ov-divider"></div>
+
+          <!-- Right side: Website links -->
+          <div class="ov-links-col">
+            <h2 class="ov-section-title">Other options:</h2>
+            <div class="ov-links-list">
+
+              <a class="website-card" href="https://www.designersandbooks.com/100-designers-100-books-list" target="_blank" rel="noopener">
+                <div class="website-card-preview">
+                  <img src="assets/images/designersandbooks.jpg" alt="Designers and Books">
+                </div>
+                <span class="website-card-name">100 Designers Choose 100 Books</span>
+              </a>
+
+              <a class="website-card" href="https://designmtw.com/reading-list/" target="_blank" rel="noopener">
+                <div class="website-card-preview">
+                  <img src="assets/images/designmtw.jpg" alt="How Design Makes The World">
+                </div>
+                <span class="website-card-name">How Design Makes The World</span>
+              </a>
+
+              <a class="website-card" href="https://medium.com/google-design/the-best-design-books-that-arent-explicitly-about-design-74fc96ce115e" target="_blank" rel="noopener">
+                <div class="website-card-preview">
+                  <img src="assets/images/mediumdesign.jpg" alt="Google Design">
+                </div>
+                <span class="website-card-name">The Best ‘Design’ Books That Aren’t Explicitly About Design</span>
+              </a>
+
+              <a class="website-card" href="https://www.shillingtoneducation.com/blog/the-45-best-graphic-design-books" target="_blank" rel="noopener">
+                <div class="website-card-preview">
+                  <img src="assets/images/shillington.jpg" alt="Shillington Education">
+                </div>
+                <span class="website-card-name">The 45 Best Graphic Design Books</span>
+              </a>
+
+              <a class="website-card" href="https://aperture.org/editorial/12-graphic-designers-on-their-favorite-books/?gad_source=1&gad_campaignid=21934723879&gbraid=0AAAAA99s9rqfUbArXZdQG5GPzC41BLohv&gclid=Cj0KCQjww8rQBhDjARIsAE43KPNOlgomRwVhrK9He7U0tNUPcFRRDvEeTv7f2GldOVvsyGQgXYufHEYaAgUaEALw_wcB" target="_blank" rel="noopener">
+                <div class="website-card-preview">
+                  <img src="assets/images/aperture.jpg" alt="Aperture">
+                </div>
+                <span class="website-card-name">12 Graphic Designers on Their Favorite Books</span>
+              </a>
+
+            </div>
           </div>
 
         </div>
-      </div>
-
-      <!-- Bottom Buttons -->
-      <div class="bottom-row">
-        <button class="btn-pill btn-primary" id="btn-recommend">Get a recommendation!</button>
-        <button class="btn-pill btn-bookshelf" id="btn-go-shelf">Bookshelf</button>
       </div>
 
     </div>
-  </div> 
+  </div>
 
   <!-- ==== BOOKSHELF SCREEN ==== -->
   <div class="screen" id="screen-shelf">
     <div class="shelf-header">
       <button class="btn-back" id="btn-back">← Back</button>
       <h1 class="page-title" style="margin:0">My Bookshelf</h1>
-      <div style="width:80px"></div>
+      <button class="btn-copy-notion" id="btn-copy-notion">Copy for Notion</button>
     </div>
     <div id="shelf-contents"></div>
   </div>

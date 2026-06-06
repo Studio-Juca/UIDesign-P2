@@ -40,7 +40,8 @@ function bindButtons() {
   document.getElementById('btn-recommend').onclick = getRecommendation;
   document.getElementById('btn-add').onclick       = addToBookshelf;
   document.getElementById('btn-go-shelf').onclick  = goToShelf;
-  document.getElementById('btn-back').onclick      = goHome;
+  document.getElementById('btn-back').onclick        = goHome;
+  document.getElementById('btn-copy-notion').onclick = copyForNotion;
   document.getElementById('book-cover-img').onclick = openLightbox;
   document.getElementById('lightbox-close').onclick = closeLightbox;
   document.getElementById('lightbox').onclick = (e) => {
@@ -48,6 +49,58 @@ function bindButtons() {
   };
   document.getElementById('toggle-sentence').onclick = () => switchInfo('sentence');
   document.getElementById('toggle-blurb').onclick    = () => switchInfo('blurb');
+  document.getElementById('tab-recommendations').onclick = () => switchTab('recommendations');
+  document.getElementById('tab-overview').onclick        = () => switchTab('overview');
+}
+
+/* ── TAB SWITCHING ── */
+function switchTab(tab) {
+  const recPanel  = document.getElementById('recommendations-panel');
+  const ovPanel   = document.getElementById('overview-panel');
+  const mainCard  = document.querySelector('.main-card');
+  const tabRec    = document.getElementById('tab-recommendations');
+  const tabOv     = document.getElementById('tab-overview');
+
+  if (tab === 'recommendations') {
+    recPanel.style.display = 'block';
+    ovPanel.classList.remove('active');
+    mainCard.classList.remove('overview-mode');
+    tabRec.className = 'tab active-tab';
+    tabOv.className  = 'tab overview-tab';
+  } else {
+    recPanel.style.display = 'none';
+    document.getElementById('filter-panel').classList.remove('open');
+    ovPanel.classList.add('active');
+    mainCard.classList.add('overview-mode');
+    tabRec.className = 'tab inactive-tab';
+    tabOv.className  = 'tab overview-tab active-tab';
+    renderOverviewBooks();
+  }
+}
+
+/* ── OVERVIEW BOOKS GRID ── */
+function renderOverviewBooks() {
+  const grid = document.getElementById('ov-books-grid');
+  if (grid.children.length > 0) return;
+
+  books.forEach(book => {
+    const card = document.createElement('div');
+    card.className = 'ov-mini-book';
+    card.title = book.title + ' — ' + book.author;
+
+    if (book.coverUrl) {
+      card.innerHTML = '<img class="ov-mini-cover" src="' + book.coverUrl + '" alt="' + book.title + '" loading="lazy">';
+    } else {
+      card.innerHTML = '<div class="ov-mini-placeholder">' + book.title + '</div>';
+    }
+
+    card.onclick = () => {
+      switchTab('recommendations');
+      showBook(book);
+    };
+
+    grid.appendChild(card);
+  });
 }
 
 /* ── FILTERS ── */
@@ -167,8 +220,12 @@ function renderShelf() {
 
     const card = document.createElement('div');
     card.className = 'shelf-book';
+    const coverHtml = book.coverUrl
+      ? `<img class="shelf-cover-img" src="${book.coverUrl}" alt="${book.title}">`
+      : `<div class="shelf-cover-placeholder">${book.title}</div>`;
+
     card.innerHTML = `
-      <div class="shelf-cover-placeholder">${book.title}</div>
+      ${coverHtml}
       <div class="shelf-info">
         <div class="shelf-book-title">${book.title}</div>
         <div class="shelf-book-author">${book.author}</div>
@@ -200,6 +257,34 @@ function openLightbox() {
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
+}
+
+/* ── COPY FOR NOTION ── */
+function copyForNotion() {
+  if (bookshelf.length === 0) {
+    showToast('Your bookshelf is empty — add some books first!');
+    return;
+  }
+
+  const stars = rating => '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating));
+
+  const lines = [
+    '# My Design Bookshelf',
+    '',
+    ...bookshelf.map(b => {
+      const meta = [
+        `${stars(b.rating)} (${b.rating}/5 · ${b.ratingCount} ratings)`,
+        b.pages ? `${b.pages} pages` : null,
+        b.isbn  ? `ISBN: ${b.isbn}`  : null,
+      ].filter(Boolean).join(' · ');
+      return `- **${b.title}** — ${b.author}\n  ${meta}`;
+    }
+    )
+  ];
+
+  navigator.clipboard.writeText(lines.join('\n'))
+    .then(() => showToast('Copied! Paste it straight into Notion.'))
+    .catch(() => showToast('Could not copy — try again.'));
 }
 
 /* ── TOAST ── */
